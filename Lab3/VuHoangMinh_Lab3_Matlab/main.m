@@ -1,10 +1,15 @@
+%%==================================================
+% Vu Hoang Minh, MAIA
+% Lab 3 : Digital Signal Processing
+%%==================================================
+
 function main()
     % Initilization
     clc;close all;clear all;
 	
 	% Run Exercise Functions
-    exercise1();
-    exercise2();
+%     exercise1();
+%     exercise2();
     exercise3();
 end
 
@@ -121,23 +126,29 @@ thresholdTextImage = graythresh(textImage);
 binaryTextImage = im2bw(textImage,thresholdTextImage);
 
 %----------------------------------------------------------------------
+% Note: In fact, we can not use xcorr2 for the given TEXT_IMAGE without 
+%       pre-processing, because the coordinates of 10 maximum values are 
+%       not the coordinates of 'a'
+%       So, we have to complement 'a' image to find the first 10 'a'
+
 % Find cross-correlation of images
 image1 = im2double(binaryAImage);
+image1 = imcomplement(image1);
 image2 = im2double(binaryTextImage);
-crossCorrelation = xcorr2(image1, image2);
+crossCorrelation = xcorr2(image2, image1);
 % Find the first 10 a
 findtena(crossCorrelation, textImage, cmap);
 
-% Note: In fact, we can not use xcorr2 for the given TEXT_IMAGE, because
-%       the coordinates of 10 maximum values are not the coordinates
-%       of 'a'; in addition, the Otsu-thresholdings affect loss of info.
-
+%----------------------------------------------------------------------
+% This is my solution before I realized that I have to complement 1 of
+% these images
 %----------------------------------------------------------------------
 % Suggestion: I created another TEXT_IMAGE, namely text_2, and use 
 %       normxcorr2 function for the original images instead of xcorr2 for
 %       binary images. And it works!
-
+% Find cross-correlation of images
 [textImage, cmap] = imread('text_2.png','png');
 crossCorrelation = normxcorr2(aImage(:,:,1), textImage(:,:, 1));
+% Find the first 10 a
 findtena(crossCorrelation, textImage, cmap);
 end
