@@ -8,8 +8,8 @@ function main()
     clc;close all;clear all;
 	
 	% Run Exercise Functions
-%     exercise1();
-%     exercise2();
+    exercise1();
+    exercise2();
     exercise3();
 end
 
@@ -141,7 +141,7 @@ findtena(crossCorrelation, textImage, cmap);
 
 %----------------------------------------------------------------------
 % This is my solution before I realized that I have to complement 1 of
-% these images
+% 2 images
 %----------------------------------------------------------------------
 % Suggestion: I created another TEXT_IMAGE, namely text_2, and use 
 %       normxcorr2 function for the original images instead of xcorr2 for
